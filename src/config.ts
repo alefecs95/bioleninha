@@ -1,9 +1,11 @@
 export interface SiteConfig {
-  /** Nome da loja (cabeçalho) */
+  /** Nome da loja */
   nome: string
   /** Linha curta sob o nome (ex.: Pizzaria & Hamburgeria) */
   categoria: string
-  /** Frase curta de boas-vindas */
+  /** Título de boas-vindas */
+  tituloBoasVindas: string
+  /** Frase curta sob o título */
   fraseBoasVindas: string
   /** Link do cardápio digital / pedido */
   urlCardapio: string
@@ -12,7 +14,7 @@ export interface SiteConfig {
     rede: string
     senha: string
   }
-  /** Linhas de horário (ex.: "Seg–Sex: 10h–22h") */
+  /** Linhas de horário */
   horarios: string[]
   /** Endereço completo */
   endereco: string
@@ -22,15 +24,16 @@ export interface SiteConfig {
   whatsappMensagem: string
   /** URL completa do Instagram */
   instagram: string
-  /** Handle exibido no botão (@...) */
+  /** Handle exibido (@...) */
   instagramHandle: string
-  /** Texto livre de avisos; deixe vazio para ocultar o bloco */
+  /** Texto livre de avisos; deixe vazio para ocultar */
   aviso: string
 }
 
 export const config: SiteConfig = {
   nome: 'Lanchonete da Leninha',
   categoria: 'Pizzaria & Hamburgeria',
+  tituloBoasVindas: 'Seja bem-vindo!',
   fraseBoasVindas: 'Pizza, burger e aquele sabor de casa.',
   urlCardapio: 'https://lanchonetedaleninha.com/',
   wifi: {
