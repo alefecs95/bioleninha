@@ -1,6 +1,9 @@
 import { useState } from 'react'
 import { config } from './config'
 
+const asset = (path: string) =>
+  `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+
 function hasText(value: string | undefined | null): boolean {
   return Boolean(value?.trim())
 }
@@ -329,10 +332,10 @@ export default function App() {
         <footer className="food-stage mt-8">
           <p className="thanks">Obrigado pela sua visita!</p>
           <div className="food-shot">
-            <img src="/food/pizza.jpg" alt="Pizza da Lanchonete da Leninha" />
+            <img src={asset('food/pizza.jpg')} alt="Pizza da Lanchonete da Leninha" />
           </div>
           <div className="food-shot">
-            <img src="/food/burger.jpg" alt="Hambúrguer da Lanchonete da Leninha" />
+            <img src={asset('food/burger.jpg')} alt="Hambúrguer da Lanchonete da Leninha" />
           </div>
         </footer>
       </main>

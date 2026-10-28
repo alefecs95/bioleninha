@@ -47,7 +47,7 @@ export const config: SiteConfig = {
   endereco: 'Rua Alarico Pacheco, 15 — Centro, São Francisco do Maranhão',
   whatsapp: '5586995054202',
   whatsappMensagem: 'Oi! Quero fazer um pedido na Lanchonete da Leninha.',
-  instagram: 'https://www.instagram.com/lanchonetedaleninha/',
-  instagramHandle: '@lanchonetedaleninha',
+  instagram: 'https://www.instagram.com/lanchoneteleninha/',
+  instagramHandle: '@lanchoneteleninha',
   aviso: '',
 }
