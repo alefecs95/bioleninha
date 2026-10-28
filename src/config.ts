@@ -1,6 +1,8 @@
 export interface SiteConfig {
   /** Nome da loja (cabeçalho) */
   nome: string
+  /** Linha curta sob o nome (ex.: Pizzaria & Hamburgeria) */
+  categoria: string
   /** Frase curta de boas-vindas */
   fraseBoasVindas: string
   /** Link do cardápio digital / pedido */
@@ -20,13 +22,16 @@ export interface SiteConfig {
   whatsappMensagem: string
   /** URL completa do Instagram */
   instagram: string
+  /** Handle exibido no botão (@...) */
+  instagramHandle: string
   /** Texto livre de avisos; deixe vazio para ocultar o bloco */
   aviso: string
 }
 
 export const config: SiteConfig = {
   nome: 'Lanchonete da Leninha',
-  fraseBoasVindas: 'Seja bem-vindo!',
+  categoria: 'Pizzaria & Hamburgeria',
+  fraseBoasVindas: 'Pizza, burger e aquele sabor de casa.',
   urlCardapio: 'https://lanchonetedaleninha.com/',
   wifi: {
     rede: 'Lanchonete da Leninha',
@@ -37,8 +42,9 @@ export const config: SiteConfig = {
     'Segunda · fechado',
   ],
   endereco: 'Rua Alarico Pacheco, 15 — Centro, São Francisco do Maranhão',
-  whatsapp: '',
-  whatsappMensagem: 'Oi! Estou na Lanchonete da Leninha.',
-  instagram: '',
+  whatsapp: '5586995054202',
+  whatsappMensagem: 'Oi! Quero fazer um pedido na Lanchonete da Leninha.',
+  instagram: 'https://www.instagram.com/lanchonetedaleninha/',
+  instagramHandle: '@lanchonetedaleninha',
   aviso: '',
 }

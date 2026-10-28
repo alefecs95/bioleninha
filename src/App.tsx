@@ -54,6 +54,14 @@ function InstagramIcon() {
   )
 }
 
+function MenuIcon() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5 shrink-0 fill-current">
+      <path d="M4 6.5A1.5 1.5 0 015.5 5h13a1.5 1.5 0 010 3h-13A1.5 1.5 0 014 6.5zm0 5.5A1.5 1.5 0 015.5 10.5h13a1.5 1.5 0 010 3h-13A1.5 1.5 0 014 12zm0 5.5A1.5 1.5 0 015.5 16h13a1.5 1.5 0 010 3h-13A1.5 1.5 0 014 17.5z" />
+    </svg>
+  )
+}
+
 export default function App() {
   const [copied, setCopied] = useState(false)
 
@@ -72,7 +80,6 @@ export default function App() {
     whatsappDigits.length >= 10
   const showInstagram =
     hasText(config.instagram) && !isPlaceholder(config.instagram)
-  const showContato = Boolean(endereco || showWhatsapp || showInstagram)
 
   const aviso = hasText(config.aviso) ? config.aviso.trim() : ''
   const showAviso = Boolean(aviso)
@@ -94,47 +101,88 @@ export default function App() {
     ? `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(config.whatsappMensagem)}`
     : '#'
 
+  const igLabel = hasText(config.instagramHandle)
+    ? config.instagramHandle.trim()
+    : 'Instagram'
+
   return (
     <div className="safe-pad flex min-h-dvh justify-center">
-      <main className="enter flex w-full max-w-[440px] flex-col gap-3.5">
+      <main className="enter stage flex w-full max-w-[440px] flex-col gap-3.5">
         <header className="flex flex-col items-center px-1 pt-1 text-center text-cream">
           <div className="mark" aria-hidden="true">
             L
           </div>
-          <h1 className="font-display mt-4 text-[2rem] leading-[1.05] font-extrabold tracking-tight text-balance sm:text-[2.25rem]">
+          <h1 className="font-display mt-4 text-[2.05rem] leading-[1.02] font-extrabold tracking-tight text-balance sm:text-[2.35rem]">
             {config.nome}
           </h1>
+          {hasText(config.categoria) && (
+            <p className="chip mt-3">{config.categoria}</p>
+          )}
           {hasText(config.fraseBoasVindas) && (
-            <p className="mt-2 text-[1.05rem] font-medium text-cream/92">
+            <p className="mt-3 max-w-[20rem] text-[1.02rem] leading-snug font-medium text-cream/92 text-pretty">
               {config.fraseBoasVindas}
             </p>
           )}
         </header>
 
+        <div className="hero-art" aria-hidden="true">
+          <div className="hero-tile hero-tile--pizza">
+            <span>Pizza</span>
+          </div>
+          <div className="hero-tile hero-tile--burger">
+            <span>Burger</span>
+          </div>
+        </div>
+
         <a href={cardapioHref} target="_blank" rel="noopener noreferrer" className="btn-cta">
+          <MenuIcon />
           Ver cardápio e pedir
         </a>
 
+        {(showWhatsapp || showInstagram) && (
+          <section className="grid gap-2.5" aria-label="Contato">
+            {showWhatsapp && (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-wa"
+              >
+                <WhatsAppIcon />
+                Pedir no WhatsApp
+              </a>
+            )}
+            {showInstagram && (
+              <a
+                href={config.instagram.trim()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ig"
+              >
+                <InstagramIcon />
+                {igLabel}
+              </a>
+            )}
+          </section>
+        )}
+
         {showWifi && (
           <section aria-labelledby="wifi-title" className="card p-4">
-            <div className="flex items-baseline justify-between gap-3">
-              <h2 id="wifi-title" className="font-display text-[1.05rem] font-bold tracking-tight">
-                Wi-Fi
-              </h2>
-            </div>
-
-            <div className="mt-3 space-y-2.5">
+            <h2 id="wifi-title" className="font-display text-[1.05rem] font-bold tracking-tight">
+              Wi-Fi da casa
+            </h2>
+            <div className="mt-3 space-y-2">
               {wifiRede && (
-                <div className="rounded-xl bg-white/55 px-3.5 py-2.5">
-                  <p className="text-[0.7rem] font-semibold tracking-wide text-ink-soft uppercase">
+                <div className="info-row">
+                  <p className="text-[0.68rem] font-semibold tracking-wide text-ink-soft uppercase">
                     Rede
                   </p>
                   <p className="mt-0.5 text-[0.98rem] font-semibold break-all">{wifiRede}</p>
                 </div>
               )}
               {wifiSenha && (
-                <div className="rounded-xl bg-white/55 px-3.5 py-2.5">
-                  <p className="text-[0.7rem] font-semibold tracking-wide text-ink-soft uppercase">
+                <div className="info-row">
+                  <p className="text-[0.68rem] font-semibold tracking-wide text-ink-soft uppercase">
                     Senha
                   </p>
                   <p className="mt-0.5 font-mono text-[1.05rem] font-semibold tracking-wide break-all">
@@ -143,7 +191,6 @@ export default function App() {
                 </div>
               )}
             </div>
-
             {wifiSenha && (
               <button type="button" onClick={() => void handleCopyPassword()} className="btn-soft mt-3">
                 {copied ? 'Senha copiada' : 'Copiar senha'}
@@ -165,40 +212,12 @@ export default function App() {
           </section>
         )}
 
-        {showContato && (
-          <section aria-labelledby="contact-title" className="card p-4">
-            <h2 id="contact-title" className="font-display text-[1.05rem] font-bold tracking-tight">
-              Endereço
+        {endereco && (
+          <section aria-labelledby="address-title" className="card p-4">
+            <h2 id="address-title" className="font-display text-[1.05rem] font-bold tracking-tight">
+              Onde estamos
             </h2>
-            {endereco && (
-              <p className="mt-2.5 text-[0.95rem] leading-relaxed text-pretty">{endereco}</p>
-            )}
-            {(showWhatsapp || showInstagram) && (
-              <div className={`flex flex-col gap-2.5 ${endereco ? 'mt-3.5' : 'mt-2.5'}`}>
-                {showWhatsapp && (
-                  <a
-                    href={whatsappHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex min-h-12 items-center justify-center gap-2 rounded-[0.9rem] bg-[#1f6b46] px-4 text-sm font-semibold text-white"
-                  >
-                    <WhatsAppIcon />
-                    WhatsApp
-                  </a>
-                )}
-                {showInstagram && (
-                  <a
-                    href={config.instagram.trim()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-soft"
-                  >
-                    <InstagramIcon />
-                    Instagram
-                  </a>
-                )}
-              </div>
-            )}
+            <p className="mt-2.5 text-[0.95rem] leading-relaxed text-pretty">{endereco}</p>
           </section>
         )}
 
