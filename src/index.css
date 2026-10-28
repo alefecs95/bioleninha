@@ -1,0 +1,166 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap');
+@import 'tailwindcss';
+
+@theme {
+  --color-tomato: #b8281a;
+  --color-tomato-deep: #8f1c12;
+  --color-mustard: #f5b82e;
+  --color-mustard-hover: #ffc94a;
+  --color-cream: #fff8ec;
+  --color-cream-edge: #f0e2cc;
+  --color-ink: #2b1410;
+  --color-ink-soft: #6a4338;
+  --font-display: 'Bricolage Grotesque', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    font-family: var(--font-body);
+    color: var(--color-ink);
+    background-color: var(--color-tomato);
+    background-image:
+      radial-gradient(ellipse 90% 55% at 50% -10%, rgba(245, 184, 46, 0.22), transparent 58%),
+      radial-gradient(ellipse 70% 45% at 0% 100%, rgba(0, 0, 0, 0.16), transparent 55%),
+      linear-gradient(180deg, #c52f1f 0%, #b8281a 45%, #9a1f14 100%);
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100dvh;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-mustard);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .card {
+    border: 1px solid color-mix(in srgb, var(--color-cream-edge) 80%, transparent);
+    border-radius: 1.15rem;
+    background: var(--color-cream);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 10px 24px rgba(43, 20, 16, 0.12);
+  }
+
+  .btn-cta {
+    display: flex;
+    min-height: 3.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.15rem;
+    background: var(--color-mustard);
+    padding: 1rem 1.25rem;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--color-ink);
+    text-decoration: none;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.35) inset,
+      0 10px 0 var(--color-tomato-deep),
+      0 16px 28px rgba(43, 20, 16, 0.22);
+    transition:
+      transform 120ms ease,
+      box-shadow 120ms ease,
+      background-color 120ms ease;
+  }
+
+  .btn-cta:hover {
+    background: var(--color-mustard-hover);
+  }
+
+  .btn-cta:active {
+    transform: translateY(6px);
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.35) inset,
+      0 4px 0 var(--color-tomato-deep),
+      0 8px 16px rgba(43, 20, 16, 0.18);
+  }
+
+  .btn-soft {
+    display: flex;
+    min-height: 3rem;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1.5px solid color-mix(in srgb, var(--color-ink) 12%, transparent);
+    border-radius: 0.9rem;
+    background: color-mix(in srgb, white 55%, var(--color-cream));
+    padding: 0.75rem 1rem;
+    font-size: 0.925rem;
+    font-weight: 600;
+    color: var(--color-ink);
+    text-decoration: none;
+    transition: background-color 120ms ease;
+  }
+
+  .btn-soft:hover {
+    background: white;
+  }
+
+  .mark {
+    display: grid;
+    place-items: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 999px;
+    background: var(--color-mustard);
+    color: var(--color-ink);
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    box-shadow:
+      0 0 0 4px color-mix(in srgb, var(--color-mustard) 28%, transparent),
+      0 8px 18px rgba(43, 20, 16, 0.18);
+  }
+}
+
+@layer utilities {
+  .safe-pad {
+    padding-top: max(1.5rem, env(safe-area-inset-top));
+    padding-right: max(1.1rem, env(safe-area-inset-right));
+    padding-bottom: max(1.75rem, env(safe-area-inset-bottom));
+    padding-left: max(1.1rem, env(safe-area-inset-left));
+  }
+
+  .enter {
+    animation: enter-up 0.5s ease-out both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .enter {
+      animation: none;
+    }
+
+    .btn-cta,
+    .btn-soft {
+      transition: none;
+    }
+  }
+}
+
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
